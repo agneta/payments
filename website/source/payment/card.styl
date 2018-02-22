@@ -1,0 +1,110 @@
+.payment-card{
+
+  padding: 10px;
+
+  &.disabled{
+    opacity: 0.2;
+    pointer-events: none;
+  }
+
+  .card-container {
+    background: color-secondary;
+    padding: 10px;
+    padding-bottom: 20px;
+    position: relative;
+    border-radius: 4px;
+  }
+
+  >.message{
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #6d6d6d;
+    font-size: 1em;
+  }
+
+  .hosted-fields--label{
+    color: white;
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .hosted-field{
+    height: 30px;
+    background: white;
+    padding: 10px;
+    border-radius: 3px;
+    &.invalid{
+      border-left: solid 6px #fd5252;
+    }
+    &.valid{
+      border-left: solid 6px #00d400;
+    }
+  }
+
+  .payment-field{
+    position: relative;
+  }
+
+  #card-image {
+
+    bottom: 0;
+    margin-bottom: 12px;
+    right: 5px;
+    position: absolute;
+    width: 44px;
+    height: 28px;
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/346994/card_sprite.png);
+    background-size: 86px 458px;
+    border-radius: 2px;
+    background-position: -100px 0;
+    background-repeat: no-repeat;
+
+    &.visa {
+      background-position: 0 -398px;
+    }
+    &.master-card {
+      background-position: 0 -281px;
+    }
+    &.american-express {
+      background-position: 0 -370px;
+    }
+    &.discover {
+      background-position: 0 -163px;
+    }
+    &.maestro {
+      background-position: 0 -251px;
+    }
+    &.jcb {
+      background-position: 0 -221px;
+    }
+    &.diners-club {
+      background-position: 0 -133px;
+    }
+  }
+
+  .error-container{
+    bottom: -18px;
+    width: 100%;
+    left: 0;
+    position: absolute;
+  }
+
+  #card-errors:not(:empty){
+    padding: 5px 10px;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px #717171;
+    background: #dc5014;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  .submit{
+    padding: 5px 20px;
+    margin: 24px 10px;
+    &[disabled]{
+      background: #e4e4e4;
+    }
+  }
+
+}

@@ -1,0 +1,32 @@
+<%
+var data = get_data('payment');
+%>
+
+<div payment-card class="payment-card ag-margin" layout="column">
+  <label class="md-padding message" for="card-element">
+    Add here your credit card details:
+  </label>
+  <div class="card-container ag-margin" layout="column">
+
+    <%-template('payment/field',data.fields.number)%>
+
+    <div class="ag-margin" layout="row" layout-align="start center">
+      <%-template('payment/field',data.fields.expiration)%>
+      <%-template('payment/field',data.fields.cvv)%>
+    </div>
+
+    <div class="error-container" layout="row" layout-align="center center">
+      <div id="card-errors">{{vm.error}}</div>
+    </div>
+
+  </div>
+  <div layout="row" layout-align="center center">
+    <md-button ng-click="paymentVisible=false" class="md-raised md-primary">
+      <md-icon md-svg-src="<%-get_icon('material/keyboard-arrow-left')%>"></md-icon>
+      Back
+    </md-button>
+    <md-button ng-click="submit()" ng-disabled="!isValid" class="md-raised md-primary submit">
+      Submit Payment
+    </md-button>
+  </div>
+</div>

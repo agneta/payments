@@ -1,0 +1,48 @@
+verifyHref: '#'
+
+header:
+  en: 'Thank you for your purchase!'
+
+intro:
+  en: 'Below are details regarding your recent purchase.'
+
+account:
+  email: test@test.com
+list:
+  -
+    title:
+      en: Top-up coins (${item.quantity})
+    subtitle: 10 + 1 Free
+    quantity: 11
+    price: $50
+transaction:
+  receipt: 2018-02-31-001
+  total: '$50'
+  cardEnding: '1234'
+  cardType: 'Visa'
+  createdAt: '2018-02-19T11:46:30.079Z'
+
+field:
+  date:
+    title:
+      en: Date
+  receipt:
+    title:
+      en: Receipt Number
+    prop: 'transaction.receipt'
+subject:
+  en: Your Evolving Cycles Receipt
+
+actions:
+  intro:
+    en: 'You are now able to:'
+  list:
+    -
+      title:
+        en: 'Book an event from our activities.'
+    -
+      title:
+        en: 'Choose from our local products and pickup at our gardens'
+    -
+      title:
+        en: 'Rent your own garden with guidance and customized kits.'

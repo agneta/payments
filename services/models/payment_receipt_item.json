@@ -1,0 +1,26 @@
+{
+  "name": "Payment_Receipt_Item",
+  "base": "Model",
+  "idInjection": true,
+  "properties": {
+    "itemId":{
+      "type": "string",
+      "required": true
+    },
+    "quantity":{
+      "type": "number",
+      "required": true
+    },
+    "discount":{
+      "type": "number",
+      "required": true
+    }
+  },
+  "relations":{
+    "customer": {
+      "type": "belongsTo",
+      "model": "Payment_Item",
+      "foreignKey": "itemId"
+    }
+  }
+}

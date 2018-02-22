@@ -1,0 +1,23 @@
+{
+  "name": "agneta-payments",
+  "version": "0.0.1",
+  "description": "Agneta Payments - Making payments with Agneta Platform",
+  "main": "main",
+  "scripts": {
+    "audit": "nsp check",
+    "lint": "node node_modules/eslint/bin/eslint --ignore-path .gitignore ./ --ext .js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agneta/payments.git"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "author": "Agneta Network Applications",
+  "license": "Apache-2.0",
+  "dependencies": {
+  },
+  "devDependencies": {
+  }
+}

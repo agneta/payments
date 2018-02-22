@@ -1,0 +1,7 @@
+<%
+  var value = locals.value || _.get(locals,locals.prop);
+%>
+<div class="field">
+  <p class="title"><%-lng(title)%></p>
+  <p><%-value%></p>
+</div>

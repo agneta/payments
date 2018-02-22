@@ -1,0 +1,100 @@
+.wrapper{
+
+  .receipt{
+    padding: 20px 0;
+
+    >div{
+      background: alpha(color-primary,0.1);
+      border: solid 2px color-primary;
+      border-radius: 4px;
+      width: 100%;
+      table{
+        width: 100%;
+      }
+      >.header{
+        padding: 10px;
+      }
+    }
+
+    td{
+      line-height: 1.6em;
+      padding: 5px;
+    }
+
+    .field{
+      display: inline-block;
+      .title{
+        font-weight: bold;
+        color: color-primary;
+        line-height: 1em;
+        margin: 0;
+      }
+    }
+
+    .total{
+      text-align: right;
+      padding: 0 12px;
+      padding-bottom: 14px;
+      >div{
+        display: inline-block;
+        background: color-green;
+        padding: 10px;
+        color: white;
+        border-radius: 5px;
+      }
+    }
+
+    .price-list{
+      text-align: left;
+      padding: 10px;
+      .header{
+        th{
+          color: color-primary;
+          border-bottom: solid 1px alpha(grey,0.4);
+          padding-bottom: 8px;
+        }
+      }
+      tr{
+        >*:last-child{
+          text-align: right;
+        }
+      }
+      .item{
+        font-size: 0.8em;
+        td{
+          padding: 0;
+        }
+        .title{
+          font-weight: bold;
+        }
+      }
+    }
+
+    .card-details{
+      background: white;
+      padding: 10px;
+      border-top: solid 1px color-primary;
+      border-bottom: solid 1px color-primary;
+    }
+
+    .receipt-number{
+      text-align: right;
+    }
+
+    .card-type{
+      font-weight: bold;
+      font-style: italic;
+      font-size: 1.2em;
+      color: #5d5d5d;
+    }
+  }
+  .actions{
+    .title{
+      font-weight: bold;
+    }
+    text-align: left;
+    background: whitesmoke;
+    padding: 10px;
+    border-radius: 3px;
+  }
+}

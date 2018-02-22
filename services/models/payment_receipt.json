@@ -1,0 +1,68 @@
+{
+  "name": "Payment_Receipt",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "prefix":{
+      "type": "string",
+      "required": true
+    },
+    "amount":{
+      "type": "string",
+      "required": true
+    },
+    "currency":{
+      "type": "string",
+      "required": true
+    },
+    "number":{
+      "type": "number",
+      "required": true
+    },
+    "transactionId":{
+      "type": "string",
+      "required": true
+    },
+    "customerId":{
+      "type": "string",
+      "required": true
+    },
+    "gateway":{
+      "type": "string",
+      "required": true
+    }
+  },
+  "relations":{
+    "customer": {
+      "type": "belongsTo",
+      "model": "Role_Customer",
+      "foreignKey": "customerId"
+    },
+    "items": {
+      "type": "embedsMany",
+      "model": "Payment_Receipt_Item",
+      "property": "itemList",
+      "options": {
+        "validate": true,
+        "forceId": false
+      },
+      "scope": {
+        "include": "linked"
+      }
+    }
+  },
+  "mixins": {
+    "TimeStamp": true
+  },
+  "indexes": {
+    "unique": {
+      "keys": {
+        "prefix": 1,
+        "number": 1
+      },
+      "options": {
+        "unique": true
+      }
+    }
+  }
+}
