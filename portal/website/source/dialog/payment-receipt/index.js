@@ -5,7 +5,7 @@ agneta.directive('PaymentReceipt',function(data,Role_Account_Manager) {
   Role_Account_Manager
     .receiptGet({
       id: data.id,
-      customerId: data.customer.id
+      customerId: data.customerId
     })
     .$promise
     .then(function(result){
