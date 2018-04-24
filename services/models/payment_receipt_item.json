@@ -7,7 +7,7 @@
       "type": "string",
       "required": true
     },
-    "collection":{
+    "description":{
       "type": "string",
       "required": true
     },
@@ -17,21 +17,18 @@
     },
     "discount":{
       "type": "number",
-      "required": true
+      "required": false
+    },
+    "price":{
+      "type": "number",
+      "required": false
     }
   },
   "relations":{
-    "customer": {
+    "item": {
       "type": "belongsTo",
       "model": "Payment_Item",
       "foreignKey": "itemId"
-    },
-    "item": {
-      "type": "belongsTo",
-      "polymorphic": {
-        "foreignKey": "itemId",
-        "discriminator": "collection"
-      }
     }
   }
 }

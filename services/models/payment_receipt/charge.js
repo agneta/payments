@@ -1,3 +1,5 @@
+const Promise = require('bluebird');
+
 module.exports = function(Model, app) {
 
   Model.charge = function(options) {
@@ -29,9 +31,13 @@ module.exports = function(Model, app) {
           return Promise.resolve()
             .then(function() {
 
-              return Model.getModel(item.collection)
-                .findById(item.id, {
+              return Model.getModel('Payment_Item')
+                .findOne({
+                  where:{
+                    code: item.code
+                  },
                   fields: {
+                    id: true,
                     price: true
                   }
                 })
@@ -54,8 +60,8 @@ module.exports = function(Model, app) {
                   priceTotal += item.quantity * result.price;
 
                   return Payment_Receipt_Item.create({
-                    itemId: item.id,
-                    collection: item.collection,
+                    itemId: result.id,
+                    description: item.description,
                     discount: item.discount,
                     quantity: item.quantity,
                     price: result.price
