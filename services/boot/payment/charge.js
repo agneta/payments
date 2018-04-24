@@ -1,14 +1,14 @@
-
 module.exports = function(app) {
 
   var braintree = app.payment.braintree;
+  var config = app.get('payment');
 
   app.payment.charge = function(options) {
 
     var account;
-    var receipt;
     var customer;
-    var transaction;
+    var receipt;
+    var transaction = {};
     var customerBraintree;
     var accountId = options.accountId || options.req.accessToken.userId;
 
@@ -37,9 +37,16 @@ module.exports = function(app) {
         if (customer.braintreeId == customerBraintree.id) {
           return;
         }
-        return customer.updateAttribute('braintreeId', customerBraintree.id);
+        return customer.updateAttribute(
+          'braintreeId',
+          customerBraintree.id);
       })
       .then(function() {
+
+        if(!options.token){
+          return;
+        }
+
         var saleOptions = {
           amount: options.amount,
           customerId: customerBraintree.id,
@@ -51,34 +58,50 @@ module.exports = function(app) {
 
         //console.log('saleOptions',saleOptions);
 
-        return braintree.transaction.sale(saleOptions);
+        return braintree.transaction.sale(saleOptions)
+          .then(function(result){
+            if(!result.success){
+              return Promise.reject({
+                statusCode: 400,
+                title: 'Could not make the transaction',
+                message: transaction.message
+              });
+            }
+
+            transaction = result.transaction;
+          });
 
       })
-      .then(function(result) {
-
-        if(!result.success){
-          return Promise.reject({
-            statusCode: 400,
-            title: 'Could not make the transaction',
-            message: transaction.message
-          });
-        }
-
-        transaction = result.transaction;
-
-        //console.log('transaction',transaction);
+      .then(function() {
 
         return app.models.Payment_Receipt.create({
           transactionId: transaction.id,
           customerId: customer.id,
           gateway: 'braintree',
-          amount: transaction.amount,
-          currency: transaction.currencyIsoCode
+          amount: options.amount
         });
+
       })
       .then(function(_receipt) {
 
         receipt = _receipt;
+
+        if(!transaction.id){
+          return;
+        }
+
+        var emailDataTransaction = {
+          amount: options.amount,
+          createdAt: new Date(),
+          currency: transaction.currencyIsoCode || config.currency
+        };
+
+        if(transaction.creditCard){
+          emailDataTransaction.card = {
+            ending: transaction.creditCard.last4,
+            type: transaction.creditCard.cardType
+          };
+        }
 
         return app.loopback.Email.send({
           to: account.email,
@@ -87,13 +110,7 @@ module.exports = function(app) {
             account: {
               email: account.email
             },
-            transaction: {
-              amount: transaction.amount,
-              cardEnding: transaction.creditCard.last4,
-              cardType: transaction.creditCard.cardType,
-              createdAt: transaction.createdAt,
-              currency: transaction.currencyIsoCode
-            },
+            transaction: emailDataTransaction,
             customer: customer
           },
           req: options.req

@@ -13,7 +13,7 @@
     },
     "currency":{
       "type": "string",
-      "required": true
+      "required": false
     },
     "number":{
       "type": "number",
@@ -21,7 +21,7 @@
     },
     "transactionId":{
       "type": "string",
-      "required": true
+      "required": false
     },
     "customerId":{
       "type": "string",
