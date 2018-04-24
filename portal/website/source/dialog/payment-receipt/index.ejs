@@ -1,1 +1,52 @@
-Hello!
+<div class="md-padding ag-margin" layout="column">
+  <div layout-align="start center" layout="row">
+    <span flex="auto"></span>
+    <span>{{receipt.code}}</span>
+  </div>
+
+  <div class="box">
+    <div class="method" layout-align="start center" layout="row">
+      <span class="title">Payment method:</span>
+      <span>{{receipt.method || 'none'}}</span>
+      <md-menu>
+        <md-button ng-click="$mdMenu.open()" aria-label="edit" class="md-icon-button">
+          <md-icon md-svg-src="<%-get_icon('material/edit')%>">
+          </md-icon>
+        </md-button>
+        <md-menu-content width="4">
+          <div layout="column">
+            <div class="ag-list-item md-padding" ng-click="editMethod('cash')">Cash</div>
+            <div class="ag-list-item md-padding" ng-click="editMethod('card')">Card</div>
+          </div>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </div>
+
+  <div class="ag-margin summary box" layout="column">
+    <span>Summary</span>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Total</th>
+      </tr>
+      <tr ng-repeat="item in receipt.itemList">
+        <td class="label">
+          <span>{{item.description}}</span>
+        </td>
+        <td>{{item.price | currency}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{(item.price * item.quantity) | currency}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div layout-align="end" layout="row">
+    <div class="amount">
+      Total: {{receipt.amount | currency}}
+    </div>
+  </div>
+
+</div>

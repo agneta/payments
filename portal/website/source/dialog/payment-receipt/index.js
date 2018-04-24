@@ -1,7 +1,7 @@
 agneta.directive('PaymentReceipt',function(data,Role_Account_Manager) {
 
-  console.log(data);
-
+  var vm = this;
+  
   Role_Account_Manager
     .receiptGet({
       id: data.id,
@@ -10,6 +10,7 @@ agneta.directive('PaymentReceipt',function(data,Role_Account_Manager) {
     .$promise
     .then(function(result){
       console.log(result);
+      vm.receipt = result;
     });
 
 });
