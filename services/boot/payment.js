@@ -16,6 +16,5 @@ module.exports = function(app) {
     currency: currency
   };
 
-  require('./payment/provider')(app);
-  require('./payment/charge')(app);
+  require('./payment/braintree')(app);
 };

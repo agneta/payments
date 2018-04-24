@@ -1,21 +1,7 @@
 const moment = require('moment');
 const Promise = require('bluebird');
-const S = require('string');
 
 module.exports = function(Model, app) {
-
-  Model.observe('loaded', function(ctx) {
-
-    var data = ctx.instance || ctx.data;
-
-    return Promise.resolve()
-      .then(function() {
-        var number = S(data.number).padLeft(4,'0');
-        data.code = `${data.prefix}-${number}`;
-      });
-
-  });
-
 
   Model.observe('before save', function(ctx) {
 
@@ -39,7 +25,7 @@ module.exports = function(Model, app) {
 
             data.number = count + 1;
             data.prefix = prefix;
-            //console.log('before save payment receipt', data);
+          //console.log('before save payment receipt', data);
           });
       })
       .then(function() {
@@ -90,5 +76,4 @@ module.exports = function(Model, app) {
         },fields);
       });
   });
-
 };

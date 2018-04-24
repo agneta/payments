@@ -30,6 +30,10 @@
     "gateway":{
       "type": "string",
       "required": false
+    },
+    "method":{
+      "type": "string",
+      "required": false
     }
   },
   "relations":{

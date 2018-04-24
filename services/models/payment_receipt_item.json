@@ -7,6 +7,10 @@
       "type": "string",
       "required": true
     },
+    "collection":{
+      "type": "string",
+      "required": true
+    },
     "quantity":{
       "type": "number",
       "required": true
@@ -21,6 +25,13 @@
       "type": "belongsTo",
       "model": "Payment_Item",
       "foreignKey": "itemId"
+    },
+    "item": {
+      "type": "belongsTo",
+      "polymorphic": {
+        "foreignKey": "itemId",
+        "discriminator": "collection"
+      }
     }
   }
 }

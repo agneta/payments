@@ -1,0 +1,48 @@
+model: Payment_Item
+title:
+  en: Payment Item
+indexes:
+  unique:
+    keys:
+      code: 1
+    options:
+      unique: true
+fields:
+  - title
+  -
+    name: 'code'
+    title:
+      en: Code
+    type: 'value'
+  -
+    name: 'description'
+    title:
+      en: Description
+    type: 'text-rich'
+  -
+    name: 'price'
+    title:
+      en: Price
+    type: 'value'
+    postfix: EUR
+    valueType: 'number'
+  -
+    name: 'tax'
+    title:
+      en: Tax
+    type: 'value'
+    valueType: 'number'
+  -
+    name: 'currency'
+    title:
+      en: Currency
+    type: 'select'
+    options:
+      -
+        value: EUR
+        title:
+          en: Euros
+      -
+        value: USD
+        title:
+          en: Dollars
