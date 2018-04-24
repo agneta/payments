@@ -19,6 +19,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "braintree": "^2.8.0",
+    "currency-codes": "^1.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "string": "^3.3.3"

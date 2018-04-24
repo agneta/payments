@@ -13,7 +13,7 @@
     },
     "currency":{
       "type": "string",
-      "required": false
+      "required": true
     },
     "number":{
       "type": "number",
@@ -29,7 +29,7 @@
     },
     "gateway":{
       "type": "string",
-      "required": true
+      "required": false
     }
   },
   "relations":{

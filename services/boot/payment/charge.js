@@ -1,16 +1,17 @@
 module.exports = function(app) {
 
-  var braintree = app.payment.braintree;
-  var config = app.get('payment');
+  var currency = app.payment.currency;
 
   app.payment.charge = function(options) {
 
-    var account;
-    var customer;
-    var receipt;
-    var transaction = {};
-    var customerBraintree;
     var accountId = options.accountId || options.req.accessToken.userId;
+    var token = options.token;
+    var amount = options.amount;
+
+    var account = null;
+    var customer = null;
+    var receipt = null;
+    var charge = null;
 
     return Promise.resolve()
       .then(function() {
@@ -21,64 +22,26 @@ module.exports = function(app) {
         account = result.account;
       })
       .then(function() {
-        if (!customer.braintreeId) {
-          return braintree.customer.create({
-            email: account.email
-          });
-        }
-        return braintree.customer.find(customer.braintreeId);
-      })
-      .then(function(_customerBraintree) {
-        customerBraintree = _customerBraintree.customer || _customerBraintree;
-        //console.log('customerBraintree',customerBraintree);
-        if(!customerBraintree){
-          throw new Error(`Could not find a braintree customer with id: ${customer.braintreeId}`);
-        }
-        if (customer.braintreeId == customerBraintree.id) {
-          return;
-        }
-        return customer.updateAttribute(
-          'braintreeId',
-          customerBraintree.id);
-      })
-      .then(function() {
 
-        if(!options.token){
-          return;
-        }
+        return app.payment.braintree.charge({
+          customer: customer,
+          account: account,
+          token: token,
+          amount: amount
+        });
 
-        var saleOptions = {
-          amount: options.amount,
-          customerId: customerBraintree.id,
-          paymentMethodNonce: options.token,
-          options: {
-            submitForSettlement: true
-          }
+      })
+      .then(function(_charge) {
+        charge = _charge || {
+          transaction: {}
         };
 
-        //console.log('saleOptions',saleOptions);
-
-        return braintree.transaction.sale(saleOptions)
-          .then(function(result){
-            if(!result.success){
-              return Promise.reject({
-                statusCode: 400,
-                title: 'Could not make the transaction',
-                message: transaction.message
-              });
-            }
-
-            transaction = result.transaction;
-          });
-
-      })
-      .then(function() {
-
         return app.models.Payment_Receipt.create({
-          transactionId: transaction.id,
+          transactionId: charge.transaction.id,
           customerId: customer.id,
-          gateway: 'braintree',
-          amount: options.amount
+          gateway: charge.gateway,
+          amount: options.amount,
+          currency: currency.code
         });
 
       })
@@ -86,20 +49,20 @@ module.exports = function(app) {
 
         receipt = _receipt;
 
-        if(!transaction.id){
+        if(!charge.transaction.id){
           return;
         }
 
         var emailDataTransaction = {
           amount: options.amount,
           createdAt: new Date(),
-          currency: transaction.currencyIsoCode || config.currency
+          currency: currency.code
         };
 
-        if(transaction.creditCard){
+        if(charge.transaction.creditCard){
           emailDataTransaction.card = {
-            ending: transaction.creditCard.last4,
-            type: transaction.creditCard.cardType
+            ending: charge.transaction.creditCard.last4,
+            type: charge.transaction.creditCard.cardType
           };
         }
 
@@ -119,7 +82,7 @@ module.exports = function(app) {
       })
       .then(function() {
         return {
-          transaction: transaction,
+          transaction: charge.transaction,
           receipt: receipt,
           customer: customer
         };

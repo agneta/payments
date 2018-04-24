@@ -20,6 +20,7 @@ module.exports = function(Model, app) {
   Model.observe('before save', function(ctx) {
 
     var data = ctx.instance || ctx.data;
+    var braintree = app.payment.braintree.client;
 
     return Promise.resolve()
       .then(function() {
@@ -38,7 +39,7 @@ module.exports = function(Model, app) {
 
             data.number = count + 1;
             data.prefix = prefix;
-            console.log('before save payment receipt', data);
+            //console.log('before save payment receipt', data);
           });
       })
       .then(function() {
@@ -56,7 +57,10 @@ module.exports = function(Model, app) {
             var totalPaid = {};
             //console.log('receipts',results);
             return Promise.map(receipts,function(receipt) {
-              return app.payment.braintree.transaction.find(receipt.transactionId)
+              if(!receipt.transactionId){
+                return;
+              }
+              return braintree.transaction.find(receipt.transactionId)
                 .then(function(result){
                   if(!result){
                     throw new Error(`transaction not found in braintree with id: ${receipt.transactionId}`);
