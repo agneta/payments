@@ -17,7 +17,7 @@ module.exports = function(Model, app) {
 
     return app.finder.paginate({
       req: options.req,
-      model: Model.getModel('Member_Topup'),
+      model: Model.getModel('Payment_Receipt'),
       max: 50,
       filter: {
         where:{
