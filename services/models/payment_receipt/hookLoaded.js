@@ -9,8 +9,10 @@ module.exports = function(Model) {
 
     return Promise.resolve()
       .then(function() {
-        var number = S(data.number).padLeft(4,'0');
-        data.code = `${data.prefix}-${number}`;
+        if(data.number){
+          var number = S(data.number).padLeft(4,'0');
+          data.code = `${data.prefix}-${number}`;
+        }
       });
 
   });

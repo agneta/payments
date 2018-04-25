@@ -14,39 +14,45 @@
           </md-icon>
         </md-button>
         <md-menu-content width="4">
-          <div layout="column">
-            <div class="ag-list-item md-padding" ng-click="editMethod('cash')">Cash</div>
-            <div class="ag-list-item md-padding" ng-click="editMethod('card')">Card</div>
-          </div>
-        </md-menu-content>
-      </md-menu>
+          <div class="payment-method-menu" layout="column">
+            <%for(var method of page.methods){%>
+              <div class="ag-list-item"
+              ng-click="editMethod('<%-method.name%>')">
+              <md-icon md-svg-src="<%-get_icon(method.icon)%>">
+              </md-icon>
+              <span><%-lng(method.title)%></span>
+              </div>
+              <%}%>
+            </div>
+          </md-menu-content>
+        </md-menu>
+      </div>
     </div>
-  </div>
 
-  <div class="ag-margin summary box" layout="column">
-    <span>Summary</span>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Total</th>
-      </tr>
-      <tr ng-repeat="item in receipt.itemList">
-        <td class="label">
-          <span>{{item.description}}</span>
-        </td>
-        <td>{{item.price | currency}}</td>
-        <td>{{item.quantity}}</td>
-        <td>{{(item.price * item.quantity) | currency}}</td>
-      </tr>
-    </table>
-  </div>
-
-  <div layout-align="end" layout="row">
-    <div class="amount">
-      Total: {{receipt.amount | currency}}
+    <div class="ag-margin summary box" layout="column">
+      <span>Summary</span>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+        </tr>
+        <tr ng-repeat="item in receipt.itemList">
+          <td class="label">
+            <span>{{item.description}}</span>
+          </td>
+          <td>{{item.price | currency}}</td>
+          <td>{{item.quantity}}</td>
+          <td>{{(item.price * item.quantity) | currency}}</td>
+        </tr>
+      </table>
     </div>
-  </div>
 
-</div>
+    <div layout-align="end" layout="row">
+      <div class="amount">
+        Total: {{receipt.amount | currency}}
+      </div>
+    </div>
+
+  </div>

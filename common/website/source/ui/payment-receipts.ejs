@@ -2,34 +2,34 @@
   <%-template('ui/paginator',{model:'receipt.paginator'})%>
   <div layout="column" class="ag-margin list">
     <%-template('ui/loader',{model:'receipt.paginator.loading'})%>
-    <div class="ag-list-item" layout="row" ng-repeat="item in receipt.paginator.list">
 
-      <div class="ag-margin" layout="column">
-        <div class="ag-margin" layout="row" layout-align="start center">
-          <h3 class="title">{{item.code}}</h3>
-          <span>{{item.amount | currency}}</span>
+    <div
+    ng-click="receipt.details(item)"
+    class="ag-list-item"
+    layout="row"
+    ng-repeat="item in receipt.paginator.list">
+
+    <div class="ag-margin" layout="column">
+      <div class="ag-margin" layout="row" layout-align="start center">
+        <h3 class="title">{{item.code}}</h3>
+        <span>{{item.amount | currency}}</span>
+      </div>
+      <div class="labels ag-margin" layout="row" layout-align="start center">
+        <div class="error" ng-if="item.status=='removed'">
+          Removed
         </div>
-        <div class="labels ag-margin" layout="row" layout-align="start center">
-          <div class="error" ng-if="item.status=='removed'">
-            Removed
-          </div>
-          <div class="error" ng-if="!item.method">
-            Not paid
-          </div>
+        <div class="error" ng-if="!item.method">
+          Not paid
         </div>
       </div>
-
-      <span flex="auto"></span>
-
-      <div layout="column">
-        <p>{{item.createdAt | amDateFormat:'LLLL'}}</p>
-        <div class="actions ag-margin" layout="row" layout-align="end center">
-          <md-button ng-click="receipt.details(item)" aria-label="details">
-            More
-          </md-button>
-        </div>
-      </div>
-
     </div>
+
+    <span flex="auto"></span>
+
+    <div layout="column">
+      <p>{{item.createdAt | amDateFormat:'LLLL'}}</p>
+    </div>
+
   </div>
+</div>
 </div>

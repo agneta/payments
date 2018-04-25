@@ -1,4 +1,5 @@
 const Promise = require('bluebird');
+const moment = require('moment');
 
 module.exports = function(Model, app) {
 
@@ -21,6 +22,8 @@ module.exports = function(Model, app) {
     var charge = null;
     var method = null;
     var list = null;
+    var number = null;
+    var prefix = moment().format('YY-MM-DD');
 
     if(amount<=0){
       return Promise.reject({
@@ -114,12 +117,24 @@ module.exports = function(Model, app) {
           transaction: {}
         };
 
+        return Model.count({
+          prefix: prefix
+        })
+          .then(function(count) {
+            count = count || 0;
+            number = count + 1;
+          });
+      })
+      .then(function() {
+
         return Payment_Receipt.create({
           transactionId: charge.transaction.id,
           customerId: customer.id,
           gateway: charge.gateway,
           method: method,
           itemList: list,
+          prefix: prefix,
+          number: number,
           amount: amount,
           currency: currency.code
         });

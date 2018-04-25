@@ -32,7 +32,6 @@ agneta.directive('AccountRoleCustomer',function($mdDialog,$location, Role_Accoun
     })
       .$promise
       .then(function(result){
-        console.log(result);
         vm.customer = result;
       });
   }

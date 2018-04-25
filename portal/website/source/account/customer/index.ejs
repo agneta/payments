@@ -1,3 +1,23 @@
 <div class="md-padding" account-role-customer>
-  <%-template('ui/payment-receipts')%>
+  <div class="ag-margin"layout="column">
+    <div class="box">
+
+      <div layout="row">
+        <div
+        ng-repeat="(key,field) in customer.paidTotal"
+        flex="auto"
+        class="customer-field">
+          <p class="title">{{key}}</p>
+          <p ng-repeat="(currency,value) in field" class="value">
+            {{currency}}: {{value}}
+          </p>
+        </div>
+      </div>
+
+    </div>
+    <div class="box">
+      <%-template('ui/payment-receipts')%>
+    </div>
+  </div>
+
 </div>

@@ -49,9 +49,6 @@
       "options": {
         "validate": true,
         "forceId": false
-      },
-      "scope": {
-        "include": "linked"
       }
     }
   },
