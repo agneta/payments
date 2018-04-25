@@ -12,7 +12,7 @@ module.exports = function(Model, app) {
 
     var accountId = options.accountId || options.req.accessToken.userId;
     var token = options.token;
-    var amount = options.amount;
+    var amount = parseFloat(options.amount);
     var items = options.items;
 
     var account = null;
@@ -21,6 +21,12 @@ module.exports = function(Model, app) {
     var charge = null;
     var method = null;
     var list = null;
+
+    if(amount<=0){
+      return Promise.reject({
+        message: `Amount (${amount}) needs to be large than 0`
+      });
+    }
 
     return Promise.resolve()
       .then(function() {
@@ -114,7 +120,7 @@ module.exports = function(Model, app) {
           gateway: charge.gateway,
           method: method,
           itemList: list,
-          amount: options.amount,
+          amount: amount,
           currency: currency.code
         });
 
@@ -128,7 +134,7 @@ module.exports = function(Model, app) {
         }
 
         var emailDataTransaction = {
-          amount: options.amount,
+          amount: amount,
           createdAt: new Date(),
           currency: currency.code
         };

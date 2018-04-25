@@ -8,7 +8,7 @@
       "required": true
     },
     "amount":{
-      "type": "string",
+      "type": "number",
       "required": true
     },
     "currency":{

@@ -1,12 +1,12 @@
+
 const moment = require('moment');
 const Promise = require('bluebird');
 
-module.exports = function(Model, app) {
+module.exports = function(Model) {
 
   Model.observe('before save', function(ctx) {
 
     var data = ctx.instance || ctx.data;
-    var braintree = app.payment.braintree.client;
 
     return Promise.resolve()
       .then(function() {
@@ -25,55 +25,9 @@ module.exports = function(Model, app) {
 
             data.number = count + 1;
             data.prefix = prefix;
-          //console.log('before save payment receipt', data);
-          });
-      })
-      .then(function() {
-
-        return Model.find({
-          fields:{
-            transactionId: true
-          },
-          where:{
-            customerId: data.customerId
-          }
-        })
-          .then(function(receipts){
-
-            var totalPaid = {};
-            //console.log('receipts',results);
-            return Promise.map(receipts,function(receipt) {
-              if(!receipt.transactionId){
-                return;
-              }
-              return braintree.transaction.find(receipt.transactionId)
-                .then(function(result){
-                  if(!result){
-                    throw new Error(`transaction not found in braintree with id: ${receipt.transactionId}`);
-                  }
-                  var total = totalPaid[result.currencyIsoCode] || 0;
-                  total += parseFloat(result.amount);
-                  totalPaid[result.currencyIsoCode] = total;
-                });
-            },{
-              concurrency: 10
-            })
-              .then(function(){
-                return {
-                  totalPaid: totalPaid
-                };
-              });
+            //console.log('before save payment receipt', data);
           });
 
-      })
-      .then(function(result) {
-        var fields = {};
-        for(var key in result.totalPaid){
-          fields[`totalPaid_${key}`] = result.totalPaid[key];
-        }
-        return app.models.Role_Customer.upsertWithWhere({
-          id: data.customerId
-        },fields);
       });
   });
 };

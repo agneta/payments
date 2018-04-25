@@ -2,16 +2,7 @@ module.exports = function(Model) {
 
   Model.me = function(req) {
 
-    return Promise.resolve()
-      .then(function() {
-        return Model.findById(
-          req.accessToken.roles.customer,
-          {
-            fields: {
-              totalPaid_USD: true
-            }
-          });
-      });
+    return Model.__get(req.accessToken.roles.customer);
 
   };
 

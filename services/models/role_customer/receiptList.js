@@ -2,36 +2,37 @@ module.exports = function(Model, app) {
 
   Model.receiptList = function(req) {
 
-    var count;
+    return Model.__receiptList({
+      req: req,
+      customerId: req.accessToken.roles.customer,
+    });
 
-    return Promise.resolve()
-      .then(function() {
-        return app.models.Payment_Receipt.count({
-          customerId: req.accessToken.roles.customer
-        });
-      })
-      .then(function(_count) {
-        count = _count;
-        return app.models.Payment_Receipt.find({
-          where:{
-            customerId: req.accessToken.roles.customer
-          },
-          fields:{
-            number: true,
-            code: true,
-            id: true,
-            prefix: true,
-            createdAt: true
-          },
-          limit: 20
-        });
-      })
-      .then(function(list) {
-        return {
-          list: list,
-          count: count
-        };
-      });
+  };
+
+  Model.__receiptList = function(options){
+
+    if(!options.customerId){
+      return Promise.reject('Member id is required');
+    }
+
+    return app.finder.paginate({
+      req: options.req,
+      model: Model.getModel('Member_Topup'),
+      max: 50,
+      filter: {
+        where:{
+          customerId: options.customerId
+        },
+        fields:{
+          code: true,
+          id: true,
+          amount: true,
+          createdAt: true
+        },
+        limit: 6,
+        order: 'createdAt DESC'
+      }
+    });
 
   };
 
