@@ -3,10 +3,12 @@ module.exports = function(Model) {
   Model.__get = function(id) {
     return Promise.resolve()
       .then(function() {
+
         return Model.findById(id,{
           fields:{
             id: true,
-            paidTotal: true
+            invoiceTotals: true,
+            paymentTotals: true
           }
         });
       })

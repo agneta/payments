@@ -1,0 +1,15 @@
+<%
+  var model = `customer.${locals.prop}`;
+%>
+<div
+flex="auto"
+class="totals">
+  <div class="header" layout="row" layout-align="start center">
+  <p class="title"><%-lng(locals.title)%></p>
+  <span flex="auto"></span>
+  <span>{{<%-model%>.count}}</span>
+  </div>
+  <p ng-repeat="entry in <%-model%>.values" class="value">
+    {{entry._id||'???'}}: {{entry.amount}} ({{entry.count}})
+  </p>
+</div>

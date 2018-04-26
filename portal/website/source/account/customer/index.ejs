@@ -1,17 +1,22 @@
+<%
+var data = get_data('account/customer');
+%>
 <div class="md-padding" account-role-customer>
   <div class="ag-margin"layout="column">
-    <div class="box">
+    <div class="box" layout="column">
 
       <div layout="row">
-        <div
-        ng-repeat="(key,field) in customer.paidTotal"
-        flex="auto"
-        class="customer-field">
-          <p class="title">{{key}}</p>
-          <p ng-repeat="(currency,value) in field" class="value">
-            {{currency}}: {{value}}
-          </p>
-        </div>
+        <span flex="auto"></span>
+        <md-button aria-label="Refresh" class="md-icon-button" ng-click="analytics()">
+          <md-icon
+          md-svg-src="<%-get_icon('material/refresh')%>">
+        </md-icon>
+      </md-button>
+    </div>
+    <div class="ag-margin" layout="row">
+      <%for(var item of data.totals){%>
+        <%-template('account/customer/totals',item)%>
+        <%}%>
       </div>
 
     </div>

@@ -15,6 +15,10 @@
       "type": "string",
       "required": true
     },
+    "customerId":{
+      "type": "string",
+      "required": true
+    },
     "transactionId":{
       "type": "string",
       "required": false
@@ -25,10 +29,15 @@
     }
   },
   "relations":{
-    "customer": {
+    "invoice": {
       "type": "belongsTo",
       "model": "Payment_Invoice",
       "foreignKey": "invoiceId"
+    },
+    "customer": {
+      "type": "belongsTo",
+      "model": "Customer_Invoice",
+      "foreignKey": "customerId"
     }
   }
 }

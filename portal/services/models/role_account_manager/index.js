@@ -6,5 +6,6 @@ module.exports = function(Model, app) {
   require('./invoicePaymentCancel')(Model,app);
 
   require('./customerGet')(Model,app);
+  require('./customerAnalytics')(Model,app);
 
 };

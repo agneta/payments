@@ -15,11 +15,24 @@ agneta.directive('AccountRoleCustomer',function($mdDialog,$location, Role_Accoun
   });
 
   if(vm.viewAccount){
-    onAccount(vm.viewAccount);
+    onAccount();
   }
+
+  vm.analytics = function(){
+
+    vm.loading = true;
+    Role_Account_Manager.customerAnalytics({
+      id: vm.customer.id
+    })
+      .$promise
+      .then(function(){
+        return onAccount();
+      });
+  };
 
   function onAccount(account){
     //console.log(account);
+    account = account || vm.viewAccount;
     var customer = account.roles.customer;
 
     if(!customer){
@@ -33,6 +46,9 @@ agneta.directive('AccountRoleCustomer',function($mdDialog,$location, Role_Accoun
       .$promise
       .then(function(result){
         vm.customer = result;
+      })
+      .finally(function() {
+        vm.loading = false;
       });
   }
 

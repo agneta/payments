@@ -1,0 +1,13 @@
+totals:
+  -
+    title:
+      en: Balance
+    prop: balanceTotals
+  -
+    title:
+      en: Invoices
+    prop: invoiceTotals
+  -
+    title:
+      en: Payments
+    prop: paymentTotals

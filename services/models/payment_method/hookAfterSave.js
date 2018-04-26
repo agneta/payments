@@ -9,7 +9,7 @@ module.exports = function(Model, app) {
     return app.payment.totalsMethod({
       model: Model,
       customerId: customerId,
-      prop: 'invoiceTotals'
+      prop: 'paymentTotals'
     });
   };
 

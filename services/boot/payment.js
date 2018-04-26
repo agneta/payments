@@ -17,4 +17,5 @@ module.exports = function(app) {
   };
 
   require('./payment/braintree')(app);
+  require('./payment/totals')(app);
 };

@@ -53,6 +53,7 @@ module.exports = function(Model, app) {
         }
         return invoice.payments.create({
           type: type,
+          customerId: invoice.customerId,
           amount: amount,
           currency: currency.code
         });

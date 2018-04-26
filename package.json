@@ -22,6 +22,7 @@
     "currency-codes": "^1.2.0",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
+    "mongodb": "^3.0.7",
     "string": "^3.3.3"
   },
   "devDependencies": {}

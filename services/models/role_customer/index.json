@@ -13,6 +13,11 @@
         "type": "hasMany",
         "model": "Payment_Invoice",
         "foreignKey": "customerId"
+    },
+    "payments": {
+        "type": "hasMany",
+        "model": "Payment_Method",
+        "foreignKey": "customerId"
     }
   },
   "acls": [{
