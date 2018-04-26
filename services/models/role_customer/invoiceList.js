@@ -1,15 +1,15 @@
 module.exports = function(Model, app) {
 
-  Model.receiptList = function(req) {
+  Model.invoiceList = function(req) {
 
-    return Model.__receiptList({
+    return Model.__invoiceList({
       req: req,
       customerId: req.accessToken.roles.customer,
     });
 
   };
 
-  Model.__receiptList = function(options){
+  Model.__invoiceList = function(options){
 
     if(!options.customerId){
       return Promise.reject('Member id is required');
@@ -17,7 +17,7 @@ module.exports = function(Model, app) {
 
     return app.finder.paginate({
       req: options.req,
-      model: Model.getModel('Payment_Receipt'),
+      model: Model.getModel('Payment_Invoice'),
       max: 50,
       filter: {
         where:{
@@ -25,6 +25,7 @@ module.exports = function(Model, app) {
         },
         fields:{
           code: true,
+          method: true,
           id: true,
           amount: true,
           createdAt: true
@@ -37,8 +38,8 @@ module.exports = function(Model, app) {
   };
 
   Model.remoteMethod(
-    'receiptList', {
-      description: 'Get receipts from customer',
+    'invoiceList', {
+      description: 'Get invoices from customer',
       accepts: [{
         arg: 'req',
         type: 'object',
@@ -53,7 +54,7 @@ module.exports = function(Model, app) {
       },
       http: {
         verb: 'post',
-        path: '/receipt-list'
+        path: '/invoice-list'
       }
     }
   );

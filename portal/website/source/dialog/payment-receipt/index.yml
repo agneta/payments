@@ -1,8 +1,8 @@
 title:
-  en: Receipt
+  en: Invoice
 
-controller: PaymentReceipt
-class: payment-receipt
+controller: PaymentInvoice
+class: payment-invoice
 
 methods:
   -

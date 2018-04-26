@@ -8,8 +8,8 @@ module.exports = function(Model, app) {
     var currency = app.payment.currency;
 
     var Account = Model.getModel('Account');
-    var Payment_Receipt = Model.getModel('Payment_Receipt');
-    var Payment_Receipt_Item = Model.getModel('Payment_Receipt_Item');
+    var Payment_Invoice = Model.getModel('Payment_Invoice');
+    var Payment_Invoice_Item = Model.getModel('Payment_Invoice_Item');
 
     var accountId = options.accountId || options.req.accessToken.userId;
     var token = options.token;
@@ -18,7 +18,7 @@ module.exports = function(Model, app) {
 
     var account = null;
     var customer = null;
-    var receipt = null;
+    var invoice = null;
     var charge = null;
     var method = null;
     var list = null;
@@ -55,7 +55,7 @@ module.exports = function(Model, app) {
                   if (!result) {
                     return Promise.reject({
                       statusCode: 400,
-                      message: 'Could not find receipt item'
+                      message: 'Could not find invoice item'
                     });
                   }
 
@@ -68,7 +68,7 @@ module.exports = function(Model, app) {
 
                   priceTotal += item.quantity * result.price;
 
-                  return Payment_Receipt_Item.create({
+                  return Payment_Invoice_Item.create({
                     itemId: result.id,
                     description: item.description,
                     discount: item.discount,
@@ -127,7 +127,7 @@ module.exports = function(Model, app) {
       })
       .then(function() {
 
-        return Payment_Receipt.create({
+        return Payment_Invoice.create({
           transactionId: charge.transaction.id,
           customerId: customer.id,
           gateway: charge.gateway,
@@ -140,9 +140,9 @@ module.exports = function(Model, app) {
         });
 
       })
-      .then(function(_receipt) {
+      .then(function(_invoice) {
 
-        receipt = _receipt;
+        invoice = _invoice;
 
         if (!charge.transaction.id) {
           return;
@@ -163,7 +163,7 @@ module.exports = function(Model, app) {
 
         return app.loopback.Email.send({
           to: account.email,
-          templateName: 'payment-receipt',
+          templateName: 'payment-invoice',
           data: {
             account: {
               email: account.email
@@ -178,7 +178,7 @@ module.exports = function(Model, app) {
       .then(function() {
         return {
           transaction: charge.transaction,
-          receipt: receipt,
+          invoice: invoice,
           customer: customer
         };
       });

@@ -16,7 +16,7 @@ list:
     quantity: 11
     price: $50
 transaction:
-  receipt: 2018-02-31-001
+  invoice: 2018-02-31-001
   total: '$50'
   cardEnding: '1234'
   cardType: 'Visa'
@@ -26,12 +26,12 @@ field:
   date:
     title:
       en: Date
-  receipt:
+  invoice:
     title:
-      en: Receipt Number
-    prop: 'transaction.receipt'
+      en: Invoice Number
+    prop: 'transaction.invoice'
 subject:
-  en: Your Evolving Cycles Receipt
+  en: Your Evolving Cycles Invoice
 
 actions:
   intro:

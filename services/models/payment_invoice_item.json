@@ -1,5 +1,5 @@
 {
-  "name": "Payment_Receipt_Item",
+  "name": "Payment_Invoice_Item",
   "base": "Model",
   "idInjection": true,
   "properties": {

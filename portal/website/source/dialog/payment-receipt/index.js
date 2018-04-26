@@ -1,10 +1,10 @@
-agneta.directive('PaymentReceipt',function(data,Role_Account_Manager) {
+agneta.directive('PaymentInvoice',function(data,Role_Account_Manager) {
 
   var vm = this;
 
   vm.editMethod = function(name){
     Role_Account_Manager
-      .receiptUpdate({
+      .invoiceUpdate({
         id: data.id,
         customerId: data.customerId,
         data:{
@@ -19,13 +19,13 @@ agneta.directive('PaymentReceipt',function(data,Role_Account_Manager) {
 
   function load() {
     Role_Account_Manager
-      .receiptGet({
+      .invoiceGet({
         id: data.id,
         customerId: data.customerId
       })
       .$promise
       .then(function(result){
-        vm.receipt = result;
+        vm.invoice = result;
       });
   }
 

@@ -1,13 +1,13 @@
 <div class="md-padding ag-margin" layout="column">
   <div layout-align="start center" layout="row">
     <span flex="auto"></span>
-    <span>{{receipt.code}}</span>
+    <span>{{invoice.code}}</span>
   </div>
 
   <div class="box">
     <div class="method" layout-align="start center" layout="row">
       <span class="title">Payment method:</span>
-      <span>{{receipt.method || 'none'}}</span>
+      <span>{{invoice.method || 'none'}}</span>
       <md-menu>
         <md-button ng-click="$mdMenu.open()" aria-label="edit" class="md-icon-button">
           <md-icon md-svg-src="<%-get_icon('material/edit')%>">
@@ -38,7 +38,7 @@
           <th>Quantity</th>
           <th>Total</th>
         </tr>
-        <tr ng-repeat="item in receipt.itemList">
+        <tr ng-repeat="item in invoice.itemList">
           <td class="label">
             <span>{{item.description}}</span>
           </td>
@@ -51,7 +51,7 @@
 
     <div layout-align="end" layout="row">
       <div class="amount">
-        Total: {{receipt.amount | currency}}
+        Total: {{invoice.amount | currency}}
       </div>
     </div>
 

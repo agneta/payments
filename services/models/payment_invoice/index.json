@@ -1,5 +1,5 @@
 {
-  "name": "Payment_Receipt",
+  "name": "Payment_Invoice",
   "base": "PersistedModel",
   "idInjection": true,
   "properties": {
@@ -19,21 +19,9 @@
       "type": "number",
       "required": true
     },
-    "transactionId":{
-      "type": "string",
-      "required": false
-    },
     "customerId":{
       "type": "string",
       "required": true
-    },
-    "gateway":{
-      "type": "string",
-      "required": false
-    },
-    "method":{
-      "type": "string",
-      "required": false
     }
   },
   "relations":{
@@ -42,9 +30,14 @@
       "model": "Role_Customer",
       "foreignKey": "customerId"
     },
+    "methods": {
+        "type": "hasMany",
+        "model": "Payment_Method",
+        "foreignKey": "invoiceId"
+    },
     "items": {
       "type": "embedsMany",
-      "model": "Payment_Receipt_Item",
+      "model": "Payment_Invoice_Item",
       "property": "itemList",
       "options": {
         "validate": true,

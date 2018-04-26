@@ -8,7 +8,7 @@ agneta.directive('AccountRoleCustomer',function($mdDialog,$location, Role_Accoun
     Role_Account_Manager: Role_Account_Manager
   };
 
-  require('account/customer/receipt.module')(shared);
+  require('account/customer/invoice.module')(shared);
 
   vm.$on('account-loaded',function(event, account){
     onAccount(account);

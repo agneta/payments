@@ -1,0 +1,30 @@
+<div class="ui-payment-invoices box" layout="column">
+  <%-template('ui/paginator',{model:'invoice.paginator'})%>
+  <div layout="column" class="ag-margin list">
+    <%-template('ui/loader',{model:'invoice.paginator.loading'})%>
+
+    <div
+    ng-click="invoice.details(item)"
+    class="ag-list-item method-{{item.method}}"
+    layout="row"
+    ng-repeat="item in invoice.paginator.list">
+
+    <div class="ag-margin" layout="column">
+      <div class="ag-margin" layout="row" layout-align="start center">
+        <h3 class="title">{{item.code}}</h3>
+        <span>{{item.amount | currency}}</span>
+      </div>
+      <div class="method">
+        Payment method: {{item.method}}
+      </div>
+    </div>
+
+    <span flex="auto"></span>
+
+    <div layout="column">
+      <p>{{item.createdAt | amDateFormat:'LLLL'}}</p>
+    </div>
+
+  </div>
+</div>
+</div>

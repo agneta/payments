@@ -1,0 +1,38 @@
+{
+  "name": "Payment_Method",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "properties": {
+    "type":{
+      "type": "string",
+      "required": true
+    },
+    "amount":{
+      "type": "number",
+      "required": true
+    },
+    "currency":{
+      "type": "string",
+      "required": true
+    },
+    "invoiceId":{
+      "type": "string",
+      "required": true
+    },
+    "transactionId":{
+      "type": "string",
+      "required": false
+    },
+    "gateway":{
+      "type": "string",
+      "required": false
+    }
+  },
+  "relations":{
+    "customer": {
+      "type": "belongsTo",
+      "model": "Payment_Invoice",
+      "foreignKey": "invoiceId"
+    }
+  }
+}

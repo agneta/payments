@@ -3,11 +3,11 @@ module.exports = {
     dataSource: 'db',
     public: true
   },
-  Payment_Receipt: {
+  Payment_Invoice: {
     dataSource: 'db',
     public: false
   },
-  Payment_Receipt_Item: {
+  Payment_Invoice_Item: {
     dataSource: 'transient',
     public: false
   }

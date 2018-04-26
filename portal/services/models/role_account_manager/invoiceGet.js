@@ -1,28 +1,23 @@
 module.exports = function(Model) {
 
-  Model.receiptList = function(customerId, req) {
+  Model.invoiceGet = function(id, customerId) {
 
     return Model.projectModel('Role_Customer')
-      .__receiptList({
-        req: req,
-        customerId: customerId,
-      });
+      .__invoiceGet(id, customerId);
 
   };
 
   Model.remoteMethod(
-    'receiptList', {
-      description: 'Get receipts from customer',
+    'invoiceGet', {
+      description: 'Get a invoice from a customer',
       accepts: [ {
+        arg: 'id',
+        type: 'string',
+        required: true
+      },{
         arg: 'customerId',
         type: 'string',
         required: true
-      }, {
-        arg: 'req',
-        type: 'object',
-        'http': {
-          source: 'req'
-        }
       }],
       returns: {
         arg: 'result',
@@ -31,7 +26,7 @@ module.exports = function(Model) {
       },
       http: {
         verb: 'post',
-        path: '/receipt-list'
+        path: '/invoice-get'
       }
     }
   );

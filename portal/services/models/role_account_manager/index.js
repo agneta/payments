@@ -1,8 +1,8 @@
 module.exports = function(Model, app) {
 
-  require('./receiptGet')(Model,app);
-  require('./receiptList')(Model,app);
-  require('./receiptUpdate')(Model,app);
+  require('./invoiceGet')(Model,app);
+  require('./invoiceList')(Model,app);
+  require('./invoicePayment')(Model,app);
 
   require('./customerGet')(Model,app);
 

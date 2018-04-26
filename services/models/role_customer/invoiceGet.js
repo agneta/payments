@@ -1,10 +1,10 @@
 module.exports = function(Model) {
 
-  Model.receiptGet = function(id, req) {
-    return Model.__receiptGet(id, req.accessToken.roles.customer);
+  Model.invoiceGet = function(id, req) {
+    return Model.__invoiceGet(id, req.accessToken.roles.customer);
   };
 
-  Model.__receiptGet = function(id,customerId){
+  Model.__invoiceGet = function(id,customerId){
     if(!customerId){
       return Promise.reject({
         statusCode: 400,
@@ -13,7 +13,7 @@ module.exports = function(Model) {
     }
     return Promise.resolve()
       .then(function(){
-        return  Model.getModel('Payment_Receipt').findById(id,{
+        return  Model.getModel('Payment_Invoice').findById(id,{
           where:{
             customerId: customerId
           }
@@ -31,7 +31,7 @@ module.exports = function(Model) {
   };
 
   Model.remoteMethod(
-    'receiptGet', {
+    'invoiceGet', {
       description: '',
       accepts: [{
         arg: 'id',
@@ -51,7 +51,7 @@ module.exports = function(Model) {
       },
       http: {
         verb: 'post',
-        path: '/receipt-get'
+        path: '/invoice-get'
       }
     }
   );

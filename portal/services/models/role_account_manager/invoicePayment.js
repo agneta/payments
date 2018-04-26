@@ -2,25 +2,25 @@ const _ = require('lodash');
 
 module.exports = function(Model) {
 
-  Model.receiptUpdate = function(id,customerId, data) {
+  Model.invoicePayment = function(id,customerId, data) {
 
     data = _.pick(data,['method']);
 
     return Promise.resolve()
       .then(function(){
         return Model.projectModel('Role_Customer')
-          .__receiptGet(id, customerId);
+          .__invoiceGet(id, customerId);
       })
-      .then(function(receipt){
-        return receipt.updateAttributes(data);
+      .then(function(invoice){
+        return invoice.updateAttributes(data);
       });
 
 
   };
 
   Model.remoteMethod(
-    'receiptUpdate', {
-      description: 'Update a receipt',
+    'invoicePayment', {
+      description: 'Update a invoice',
       accepts: [{
         arg: 'id',
         type: 'string',
@@ -47,7 +47,7 @@ module.exports = function(Model) {
       },
       http: {
         verb: 'post',
-        path: '/receipt-update'
+        path: '/invoice-payment'
       }
     }
   );

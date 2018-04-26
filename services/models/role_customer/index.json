@@ -9,9 +9,9 @@
     }
   },
   "relations": {
-    "receipts": {
+    "invoices": {
         "type": "hasMany",
-        "model": "Payment_Receipt",
+        "model": "Payment_Invoice",
         "foreignKey": "customerId"
     }
   },
