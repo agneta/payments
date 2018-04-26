@@ -1,3 +1,6 @@
+<%
+var data = get_data('payment/invoice');
+%>
 <div class="ui-payment-invoices box" layout="column">
   <%-template('ui/paginator',{model:'invoice.paginator'})%>
   <div layout="column" class="ag-margin list">
@@ -14,17 +17,23 @@
         <h3 class="title">{{item.code}}</h3>
         <span>{{item.amount | currency}}</span>
       </div>
-      <div class="method">
-        Payment method: {{item.method}}
+      <div class="ag-margin" layout="row">
+        <%for(let name in data.status){
+          var status = data.status[name];
+          %>
+          <div ng-if="item.paymentStatus=='<%-name%>'" class="label <%-status.class%>">
+          <%-lng(status.title)%>
+          </div>
+          <%}%>
+        </div>
       </div>
+
+      <span flex="auto"></span>
+
+      <div layout="column">
+        <p>{{item.createdAt | amDateFormat:'LLLL'}}</p>
+      </div>
+
     </div>
-
-    <span flex="auto"></span>
-
-    <div layout="column">
-      <p>{{item.createdAt | amDateFormat:'LLLL'}}</p>
-    </div>
-
   </div>
-</div>
 </div>

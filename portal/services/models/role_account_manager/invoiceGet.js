@@ -1,9 +1,9 @@
 module.exports = function(Model) {
 
-  Model.invoiceGet = function(id, customerId) {
+  Model.invoiceGet = function(id) {
 
     return Model.projectModel('Role_Customer')
-      .__invoiceGet(id, customerId);
+      .__invoiceGet(id);
 
   };
 
@@ -12,10 +12,6 @@ module.exports = function(Model) {
       description: 'Get a invoice from a customer',
       accepts: [ {
         arg: 'id',
-        type: 'string',
-        required: true
-      },{
-        arg: 'customerId',
         type: 'string',
         required: true
       }],

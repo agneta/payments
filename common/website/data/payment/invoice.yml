@@ -1,0 +1,17 @@
+status:
+  partial:
+    title:
+      en: Partly paid
+    class: warn
+  over:
+    title:
+      en: Overpaid
+    class: warn
+  full:
+    title:
+      en: Paid
+    class: success
+  none:
+    title:
+      en: Not paid
+    class: error

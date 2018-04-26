@@ -30,7 +30,7 @@
       "model": "Role_Customer",
       "foreignKey": "customerId"
     },
-    "methods": {
+    "payments": {
         "type": "hasMany",
         "model": "Payment_Method",
         "foreignKey": "invoiceId"

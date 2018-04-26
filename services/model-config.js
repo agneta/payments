@@ -3,6 +3,10 @@ module.exports = {
     dataSource: 'db',
     public: true
   },
+  Payment_Method: {
+    dataSource: 'db',
+    public: false
+  },
   Payment_Invoice: {
     dataSource: 'db',
     public: false

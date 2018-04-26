@@ -20,14 +20,21 @@ module.exports = function(Model, app) {
       model: Model.getModel('Payment_Invoice'),
       max: 50,
       filter: {
+        include:{
+          relation: 'payments',
+          scope:{
+            fields: ['amount']
+          }
+        },
         where:{
           customerId: options.customerId
         },
         fields:{
           code: true,
-          method: true,
+          paymentStatus: true,
           id: true,
           amount: true,
+          currency: true,
           createdAt: true
         },
         limit: 6,

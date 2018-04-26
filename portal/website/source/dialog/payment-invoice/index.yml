@@ -3,20 +3,3 @@ title:
 
 controller: PaymentInvoice
 class: payment-invoice
-
-methods:
-  -
-    name: 'cash'
-    title:
-      en: Cash
-    icon: material/attach-money
-  -
-    name: 'card'
-    title:
-      en: Card
-    icon: material/credit-card
-  -
-    name: 'none'
-    title:
-      en: None
-    icon: material/do-not-disturb

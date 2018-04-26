@@ -1,0 +1,17 @@
+title:
+  en: Add Payment to Invoice
+
+controller: PaymentAdd
+class: payment-add
+
+types:
+  -
+    name: 'cash'
+    title:
+      en: Cash
+    icon: material/attach-money
+  -
+    name: 'card'
+    title:
+      en: Card
+    icon: material/credit-card

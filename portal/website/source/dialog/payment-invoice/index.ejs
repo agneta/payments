@@ -1,36 +1,16 @@
-<div class="md-padding ag-margin" layout="column">
-  <div layout-align="start center" layout="row">
-    <span flex="auto"></span>
-    <span>{{invoice.code}}</span>
+<div class="header md-padding" layout-align="start center" layout="row">
+  <div>
+  <h2>Invoice: {{invoice.code}}</h2>
+  <span>{{invoice.createdAt | amDateFormat:'LLLL'}}</span>
   </div>
+  <span flex="auto"></span>
+</div>
 
-  <div class="box">
-    <div class="method" layout-align="start center" layout="row">
-      <span class="title">Payment method:</span>
-      <span>{{invoice.method || 'none'}}</span>
-      <md-menu>
-        <md-button ng-click="$mdMenu.open()" aria-label="edit" class="md-icon-button">
-          <md-icon md-svg-src="<%-get_icon('material/edit')%>">
-          </md-icon>
-        </md-button>
-        <md-menu-content width="4">
-          <div class="payment-method-menu" layout="column">
-            <%for(var method of page.methods){%>
-              <div class="ag-list-item"
-              ng-click="editMethod('<%-method.name%>')">
-              <md-icon md-svg-src="<%-get_icon(method.icon)%>">
-              </md-icon>
-              <span><%-lng(method.title)%></span>
-              </div>
-              <%}%>
-            </div>
-          </md-menu-content>
-        </md-menu>
-      </div>
-    </div>
+<div class="md-padding ag-margin" layout="column">
 
-    <div class="ag-margin summary box" layout="column">
-      <span>Summary</span>
+  <div class="ag-margin summary" layout="column">
+    <h3>Summary</h3>
+    <div class="box">
       <table>
         <tr>
           <th>Name</th>
@@ -38,7 +18,7 @@
           <th>Quantity</th>
           <th>Total</th>
         </tr>
-        <tr ng-repeat="item in invoice.itemList">
+        <tr ng-repeat="item in invoice.items">
           <td class="label">
             <span>{{item.description}}</span>
           </td>
@@ -48,11 +28,33 @@
         </tr>
       </table>
     </div>
+  </div>
 
-    <div layout-align="end" layout="row">
-      <div class="amount">
-        Total: {{invoice.amount | currency}}
-      </div>
+  <div layout-align="end" layout="row">
+    <div class="amount">
+      Total: {{invoice.amount | currency}}
     </div>
+  </div>
 
+  <div class="payments" layout="column">
+    <h3>Payments</h3>
+    <div class="box">
+      <table>
+        <tr>
+          <th>Type</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <tr ng-repeat="item in invoice.payments">
+            <td>{{item.type}}</td>
+            <td>{{item.amount | currency}}</td>
+            <td>{{item.createdAt | amDateFormat:'LLLL'}}</td>
+          </tr>
+        </tr>
+      </table>
+    </div>
+    <div layout="row" layout-align="end">
+      <md-button ng-click="addPayment()">
+        Add
+      </md-button>
+    </div>
   </div>

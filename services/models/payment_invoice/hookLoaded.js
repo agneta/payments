@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
 const S = require('string');
-
+const _ = require('lodash');
 module.exports = function(Model) {
 
   Model.observe('loaded', function(ctx) {
@@ -9,8 +9,26 @@ module.exports = function(Model) {
 
     return Promise.resolve()
       .then(function() {
-        if(!data.method){
-          data.method = 'none';
+
+        if(data.payments && data.amount){
+
+          var totalAmount = _.sumBy(data.payments,'amount');
+          var paymentStatus;
+
+          if(data.amount>totalAmount){
+            paymentStatus = 'partial';
+          }
+          if(data.amount<totalAmount){
+            paymentStatus = 'over';
+          }
+          if(data.amount==totalAmount){
+            paymentStatus = 'full';
+          }
+          if(!totalAmount){
+            paymentStatus = 'none';
+          }
+
+          data.paymentStatus = paymentStatus;
         }
         if(data.number){
           var number = S(data.number).padLeft(4,'0');

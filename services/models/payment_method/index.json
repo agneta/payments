@@ -11,10 +11,6 @@
       "type": "number",
       "required": true
     },
-    "currency":{
-      "type": "string",
-      "required": true
-    },
     "invoiceId":{
       "type": "string",
       "required": true

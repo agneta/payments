@@ -1,32 +1,51 @@
 module.exports = function(Model) {
 
   Model.invoiceGet = function(id, req) {
-    return Model.__invoiceGet(id, req.accessToken.roles.customer);
-  };
 
-  Model.__invoiceGet = function(id,customerId){
+    var customerId = req.accessToken.roles.customer;
+
     if(!customerId){
       return Promise.reject({
         statusCode: 400,
         message: 'Customer ID is required'
       });
     }
+
+    return Model.__invoiceGet(id, customerId);
+  };
+
+  Model.__invoiceGet = function(id,customerId){
+
     return Promise.resolve()
       .then(function(){
         return  Model.getModel('Payment_Invoice').findById(id,{
+          include:['items',{
+            relation: 'payments',
+            scope:{
+              fields: ['type','amount','createdAt']
+            }
+          }],
+          fields:{
+            id: true,
+            code: true,
+            paymentStatus: true,
+            amount: true,
+            currency: true,
+            createdAt: true
+          },
           where:{
             customerId: customerId
           }
         });
       })
-      .then(function(topup){
-        if(!topup){
+      .then(function(invoice){
+        if(!invoice){
           return Promise.reject({
             statusCode: 404,
-            message: 'Topup not found'
+            message: 'Invoice not found'
           });
         }
-        return topup;
+        return invoice;
       });
   };
 
