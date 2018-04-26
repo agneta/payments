@@ -29,6 +29,7 @@ module.exports = function(Model) {
             id: true,
             code: true,
             paymentStatus: true,
+            paidTotal: true,
             amount: true,
             currency: true,
             createdAt: true

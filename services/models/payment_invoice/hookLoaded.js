@@ -29,6 +29,7 @@ module.exports = function(Model) {
           }
 
           data.paymentStatus = paymentStatus;
+          data.paidTotal = totalAmount;
         }
         if(data.number){
           var number = S(data.number).padLeft(4,'0');

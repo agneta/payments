@@ -1,0 +1,13 @@
+<%
+var data = get_data('payment/invoice');
+var model = locals.model || 'item';
+%>
+<div class="payment-invoice-labels ag-margin" layout="row">
+  <%for(let name in data.status){
+    var status = data.status[name];
+    %>
+    <div ng-if="<%-model%>.paymentStatus=='<%-name%>'" class="label <%-status.class%>">
+    <%-lng(status.title)%>
+    </div>
+    <%}%>
+  </div>
