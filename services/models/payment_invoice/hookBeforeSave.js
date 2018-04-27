@@ -41,7 +41,11 @@ module.exports = function(Model) {
     }
 
     var paidTotal = 0;
-    for(var payment of data.payments){
+    var payments = data.payments;
+    if(!_.isArray(payments)){
+      payments = [];
+    }
+    for(var payment of payments){
       if(payment.status!='accepted'){
         continue;
       }
