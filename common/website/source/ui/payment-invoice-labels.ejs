@@ -6,7 +6,7 @@ var model = locals.model || 'item';
   <%for(let name in data.status){
     var status = data.status[name];
     %>
-    <div ng-if="<%-model%>.paymentStatus=='<%-name%>'" class="label <%-status.class%>">
+    <div ng-if="<%-model%>.status=='<%-name%>'" class="label <%-status.class%>">
     <%-lng(status.title)%>
     </div>
     <%}%>

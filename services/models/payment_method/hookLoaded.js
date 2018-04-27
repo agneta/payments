@@ -1,28 +1,33 @@
-const S = require('string');
+const Promise = require('bluebird');
+
 module.exports = function(Model) {
 
   Model.observe('loaded', function(ctx) {
+
     var data = ctx.instance || ctx.data;
 
     return Promise.resolve()
       .then(function() {
 
-        if(data.code){
+        if(data.customerId){
+          return;
+        }
+        if(!data.invoiceId){
           return;
         }
 
-        if(!data.number || !data.prefix){
-          return;
-        }
+        return Model.getModel('Payment_Invoice')
+          .findById(data.invoiceId,{
+            fields:{
+              customerId: true
+            }
+          })
+          .then(function(invoice) {
+            data.customerId = invoice.customerId;
 
-        var number = S(data.number).padLeft(4,'0');
-        data.code = `${data.prefix}-${number}`;
-
-        return Promise.resolve()
-          .then(function() {
             if(ctx.instance){
               return ctx.instance.updateAttributes({
-                code: data.code
+                customerId: data.customerId
               });
             }
             if(!data.id){
@@ -30,10 +35,15 @@ module.exports = function(Model) {
             }
             return Model.upsertWithWhere({
               id:data.id},{
-              code: data.code
+              customerId: data.customerId
             });
+
           });
 
       });
+
   });
+
+
+
 };

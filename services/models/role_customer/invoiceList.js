@@ -31,7 +31,7 @@ module.exports = function(Model, app) {
         },
         fields:{
           code: true,
-          paymentStatus: true,
+          status: true,
           id: true,
           amount: true,
           currency: true,

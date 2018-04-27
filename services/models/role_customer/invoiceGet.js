@@ -28,9 +28,9 @@ module.exports = function(Model) {
           fields:{
             id: true,
             code: true,
-            paymentStatus: true,
             paidTotal: true,
             amount: true,
+            status: true,
             currency: true,
             createdAt: true
           },
