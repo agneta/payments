@@ -19,9 +19,9 @@ module.exports = function(app) {
 
         return Model.getCollection()
           .aggregate([{
-            $match:{
+            $match:_.extend({
               customerId: ObjectID(customerId)
-            }
+            },options.query || {})
           },
           {
             $group:{

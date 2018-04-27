@@ -44,10 +44,12 @@
         <tr>
           <th>Type</th>
           <th>Amount</th>
+          <th>Status</th>
           <th>Date</th>
-          <tr ng-repeat="item in invoice.payments">
+          <tr ng-click="paymentOptions(item,$event)" ng-repeat="item in invoice.payments">
             <td>{{item.type}}</td>
             <td>{{item.amount | currency}}</td>
+            <td>{{item.status}}</td>
             <td>{{item.createdAt | amDateFormat:'LLLL'}}</td>
           </tr>
         </tr>
@@ -55,25 +57,25 @@
     </div>
     <div class="box" layout="row" layout-align="start center">
       <div class="result">
-      <table>
-        <tr>
-          <td class="label">
-            Total paid:
-          </td>
-          <td>
-            {{invoice.paidTotal | currency}}
-          </td>
-        </tr>
-        <tr>
-          <td class="label">
-            Amount remaining:
-          </td>
-          <td>
-            {{(invoice.amount - invoice.paidTotal) | currency}}
-          </td>
-        </tr>
-      </table>
-    </div>
+        <table>
+          <tr>
+            <td class="label">
+              Total paid:
+            </td>
+            <td>
+              {{invoice.paidTotal | currency}}
+            </td>
+          </tr>
+          <tr>
+            <td class="label">
+              Amount remaining:
+            </td>
+            <td>
+              {{(invoice.amount - invoice.paidTotal) | currency}}
+            </td>
+          </tr>
+        </table>
+      </div>
       <span flex="auto"></span>
 
       <md-button ng-click="addPayment()">
@@ -81,3 +83,16 @@
       </md-button>
     </div>
   </div>
+
+  <script type="text/ng-template" id="payment-menu.html">
+    <div class="md-open-menu-container md-whiteframe-z2 media-item-menu">
+      <md-menu-content layout="column">
+        <md-button ng-click="paymentUpdate('accepted')">
+          Accept
+        </md-button>
+        <md-button ng-click="paymentUpdate('cancelled')">
+          Cancel
+        </md-button>
+      </md-menu-content>
+    </div>
+  </script>

@@ -1,20 +1,24 @@
 module.exports = function(Model) {
 
-  Model.invoicePaymentCancel = function(invoiceId){
+  Model.invoicePaymentUpdate = function(id, status){
     return Model.projectModel('PaymentMethod')
-      .findById(invoiceId)
+      .findById(id)
       .then(function(payment){
         return payment.updateAttributes({
-          status: 'cancelled'
+          status: status
         });
       });
   };
 
   Model.remoteMethod(
-    'invoicePaymentCancel', {
+    'invoicePaymentUpdate', {
       description: 'Cancel a payment invoice',
       accepts: [{
-        arg: 'invoiceId',
+        arg: 'id',
+        type: 'string',
+        required: true
+      },{
+        arg: 'status',
         type: 'string',
         required: true
       }],
@@ -25,7 +29,7 @@ module.exports = function(Model) {
       },
       http: {
         verb: 'post',
-        path: '/invoice-payment-cancel'
+        path: '/invoice-payment-update'
       }
     });
 

@@ -3,13 +3,19 @@
 %>
 <div
 flex="auto"
-class="totals">
+class="totals <%-locals.class%>">
   <div class="header" layout="row" layout-align="start center">
   <p class="title"><%-lng(locals.title)%></p>
   <span flex="auto"></span>
   <span>{{<%-model%>.count}}</span>
   </div>
-  <p ng-repeat="entry in <%-model%>.values" class="value">
-    {{entry._id||'???'}}: {{entry.amount}} ({{entry.count}})
-  </p>
+  <div
+  layout="row"
+  layout-align="start center"
+  ng-repeat="entry in <%-model%>.values"
+  class="value">
+    <span>{{entry._id||'???'}}: {{entry.amount}}</span>
+    <span flex="auto"></span>
+    <span>{{entry.count}}</span>
+  </div>
 </div>

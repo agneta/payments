@@ -1,4 +1,4 @@
-agneta.directive('PaymentInvoice',function(data,Role_Account_Manager, $mdDialog) {
+agneta.directive('PaymentInvoice',function(data,Role_Account_Manager,$timeout,$rootScope, $templateRequest, $compile, $mdDialog, $mdMenu) {
 
   var vm = this;
   agneta.extend(vm, 'AgDialogCtrl');
@@ -18,11 +18,55 @@ agneta.directive('PaymentInvoice',function(data,Role_Account_Manager, $mdDialog)
       });
   };
 
-  vm.removePayment = function(){
+  var paymentSelected;
+  $templateRequest('payment-menu.html').then(function(html) {
 
-    Role_Account_Manager.invoicePaymentRemove({
-      id: data.id
+    var template = angular.element(
+      $compile(html)(vm)
+    );
+
+    var menuCtrl = {
+      open: function(event) {
+        $mdMenu.show({
+          scope: $rootScope.$new(),
+          mdMenuCtrl: menuCtrl,
+          element: template,
+          target: event.target
+        });
+      },
+
+      close: function() {
+        $mdMenu.hide();
+      },
+      positionMode: function() {
+        return {
+          left: 'target',
+          top: 'target'
+        };
+      },
+      offsets: function() {
+        return {
+          left: event.offsetX,
+          top: event.offsetY
+        };
+      }
+    };
+
+    vm.paymentOptions =function(payment, event) {
+      paymentSelected = payment;
+      menuCtrl.open(event);
+    };
+
+  });
+
+
+  vm.paymentUpdate = function(status){
+    console.log(paymentSelected, status);
+    Role_Account_Manager.invoicePaymentUpdate({
+      id: paymentSelected.id,
+      status: status
     })
+      .$promise
       .then(function(){
         return load();
       });

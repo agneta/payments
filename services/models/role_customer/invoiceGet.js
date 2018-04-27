@@ -22,7 +22,7 @@ module.exports = function(Model) {
           include:['items',{
             relation: 'payments',
             scope:{
-              fields: ['type','amount','createdAt']
+              fields: ['type','amount','createdAt','id','status']
             }
           }],
           fields:{

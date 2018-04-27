@@ -9,6 +9,9 @@ module.exports = function(Model, app) {
     return app.payment.totalsMethod({
       model: Model,
       customerId: customerId,
+      query:{
+        status: 'accepted'
+      },
       prop: 'paymentTotals'
     });
   };

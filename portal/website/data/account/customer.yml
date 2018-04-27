@@ -1,8 +1,9 @@
 totals:
   -
     title:
-      en: Balance
-    prop: balanceTotals
+      en: Remaining
+    prop: remainingTotals
+    class: important
   -
     title:
       en: Invoices
