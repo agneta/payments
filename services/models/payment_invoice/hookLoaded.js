@@ -2,10 +2,17 @@ const S = require('string');
 module.exports = function(Model) {
 
   Model.observe('loaded', function(ctx) {
-    var data = ctx.instance || ctx.data;
+    var data = ctx.data;
 
     return Promise.resolve()
       .then(function() {
+
+        if(!data){
+          return;
+        }
+        if(ctx.options.updatedCode){
+          return;
+        }
 
         if(data.code){
           return;
@@ -18,21 +25,9 @@ module.exports = function(Model) {
         var number = S(data.number).padLeft(4,'0');
         data.code = `${data.prefix}-${number}`;
 
-        return Promise.resolve()
-          .then(function() {
-            if(ctx.instance){
-              return ctx.instance.updateAttributes({
-                code: data.code
-              });
-            }
-            if(!data.id){
-              return;
-            }
-            return Model.upsertWithWhere({
-              id:data.id},{
-              code: data.code
-            });
-          });
+        return Model.replaceById(data.id,data,{
+          updatedCode: true
+        });
 
       });
   });

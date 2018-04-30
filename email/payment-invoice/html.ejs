@@ -1,12 +1,9 @@
-<tr>
-  <td align="center" class="">
-    <%-lng(intro)%>
-  </td>
-</tr>
-<tr>
-  <td class="invoice" align="center">
+<div align="center">
+  <%-lng(intro)%>
+</div>
 
-    <div>
+<div class="invoice">
+  <div>
     <table class="header" cellpadding="0" cellspacing="0" border="0">
 
       <tr >
@@ -24,57 +21,52 @@
     </table>
 
     <div class="card-details">
-        <span class="title"><%-account.email%></span>
-        <%if(transaction.card){%>
+      <span class="title"><%-account.email%></span>
+      <%if(transaction.card){%>
         <span>-</span>
         <span class="card-type"><%-transaction.card.type%></span>
         <span class="card-ending"><%-transaction.card.ending%></span>
         <%}%>
-    </div>
-    <table class="price-list" cellpadding="0" cellspacing="0" border="0">
-      <tr class="header">
-        <th>
-          Description
-        </th>
-        <th>
-          Price
-        </th>
-      </tr>
-      <%for(var item of list){%>
-        <tr class="item">
-        <td>
-        <div>
+      </div>
+      <table class="price-list" cellpadding="0" cellspacing="0" border="0">
+        <tr class="header">
+          <th>
+            Description
+          </th>
+          <th>
+            Price
+          </th>
+        </tr>
+        <%for(var item of list){%>
+          <tr class="item">
+          <td>
+          <div>
           <p class="title"><%-lng({source:item.title, templateData:{item:item}})%></p>
           <p class="subtitle"><%-item.subtitle%></p>
+          </div>
+          </td>
+          <td>
+          <%-item.price%>
+          </td>
+          </tr>
+          <%}%>
+        </table>
+        <div class="total">
+          <div>
+            Total: <%-transaction.total%>
+          </div>
         </div>
-        </td>
-        <td>
-        <%-item.price%>
-        </td>
-        </tr>
-      <%}%>
-    </table>
-    <div class="total">
-      <div>
-        Total: <%-transaction.total%>
       </div>
     </div>
-    </div>
 
-  </td>
-</tr>
-<tr>
-  <td height="20" class="spacer border">&nbsp;</td>
-</tr>
-<tr>
-  <td class="actions body-copy" align="center">
-    <p class="title">
-      <%-lng(actions.intro)%>
-    </p>
-    <% for(var item of actions.list){ %>
-      <p>
-      > <%-lng(item.title)%>
+    <div height="20" class="spacer border">&nbsp;</div>
+    <div class="actions body-copy" align="center">
+      <p class="title">
+        <%-lng(actions.intro)%>
       </p>
-      <% } %>
-    </td>
-  </tr>
+      <% for(var item of actions.list){ %>
+        <p>
+        > <%-lng(item.title)%>
+        </p>
+        <% } %>
+      </div>

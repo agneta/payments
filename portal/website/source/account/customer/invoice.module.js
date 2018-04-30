@@ -24,7 +24,7 @@ module.exports = function(shared) {
       partial: 'payment-invoice',
       data: {
         id: item.id,
-        customerId: vm.viewAccount.roles.customer.id
+        customerId: vm.viewAccount.role.customer.id
       }
     });
   };

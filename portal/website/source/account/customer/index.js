@@ -33,7 +33,7 @@ agneta.directive('AccountRoleCustomer',function($mdDialog,$location, Role_Accoun
   function onAccount(account){
     //console.log(account);
     account = account || vm.viewAccount;
-    var customer = account.roles.customer;
+    var customer = account.role.customer;
 
     if(!customer){
       return;
