@@ -1,6 +1,6 @@
 {
   "name": "agneta-payments",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Agneta Payments - Making payments with Agneta Platform",
   "main": "main",
   "scripts": {
