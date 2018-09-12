@@ -2,7 +2,9 @@ module.exports = function(Model) {
 
   Model.me = function(req) {
 
-    return Model.__get(req.accessToken.roles.customer);
+    return Model.__get({
+      id: req.accessToken.roles.customer
+    });
 
   };
 

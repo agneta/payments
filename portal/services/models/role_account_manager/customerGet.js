@@ -1,9 +1,11 @@
 module.exports = function(Model) {
 
-  Model.customerGet = function(id) {
+  Model.customerGet = function(accountId) {
 
     return Model.projectModel('Role_Customer')
-      .__get(id);
+      .__get({
+        accountId: accountId
+      });
 
   };
 
@@ -11,7 +13,7 @@ module.exports = function(Model) {
     'customerGet', {
       description: 'Get customer details',
       accepts: [ {
-        arg: 'id',
+        arg: 'accountId',
         type: 'string',
         required: true
       }],

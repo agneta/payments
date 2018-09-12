@@ -2,7 +2,8 @@ module.exports = {
   roles:{
     customer:{
       title: {
-        en: 'Customer'
+        en: 'Customer',
+        gr: 'Πελάτης'
       },
       model: 'Role_Customer'
     }

@@ -2,11 +2,15 @@ const _ = require('lodash');
 
 module.exports = function(Model) {
 
-  Model.__get = function(id) {
+  Model.__get = function(options) {
     return Promise.resolve()
       .then(function() {
 
-        return Model.findById(id,{
+        return Model.findOne({
+          where:{
+            id: options.id,
+            accountId: options.accountId
+          },
           fields:{
             id: true,
             invoiceTotals: true,
@@ -37,7 +41,7 @@ module.exports = function(Model) {
         if(!result){
           return Promise.reject({
             statusCode: 401,
-            message: `Customer not found. Check the id you supplied: ${id}`
+            message: 'Customer not found. Check the id you supplied.'
           });
         }
         return result;

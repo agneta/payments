@@ -41,7 +41,7 @@ agneta.directive('AccountRoleCustomer',function($mdDialog,$location, Role_Accoun
     vm.loading = true;
 
     Role_Account_Manager.customerGet({
-      id: customer.id
+      accountId: vm.viewAccount.id
     })
       .$promise
       .then(function(result){
